@@ -71,6 +71,33 @@ body {
   color: transparent;
 }
 
+/* Birthday balloons on the final screen (see src/app/game/balloons.tsx). */
+.balloon {
+  position: absolute;
+  bottom: 0;
+  opacity: 0.92;
+  animation-name: balloon-rise;
+  animation-timing-function: cubic-bezier(0.35, 0.1, 0.55, 1);
+  animation-fill-mode: both;
+}
+
+.balloon-sway {
+  display: block;
+  width: 100%;
+  transform-origin: 50% 0%;
+  animation: balloon-sway 3s ease-in-out infinite alternate;
+}
+
+@keyframes balloon-rise {
+  from { transform: translateY(110%); }
+  to { transform: translateY(calc(-100vh - 110%)); }
+}
+
+@keyframes balloon-sway {
+  from { transform: translateX(-8px) rotate(-6deg); }
+  to { transform: translateX(8px) rotate(6deg); }
+}
+
 /* Hide the number input spinners; we use our own buttons. */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {

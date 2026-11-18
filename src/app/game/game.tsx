@@ -23,6 +23,7 @@ import {
 } from "@/lib/game";
 import { card, eyebrow, primaryButton, secondaryButton, skeleton } from "@/lib/styles";
 import { readSession, useHydrated, writeSession } from "@/lib/use-hydrated";
+import { Balloons } from "./balloons";
 
 // ---------------------------------------------------------------------------
 // State
@@ -141,7 +142,7 @@ function GameBoard() {
       return <Playing state={state} dispatch={dispatch} />;
     case "you-won":
     case "i-won":
-      return <Ending state={state} onReplay={() => dispatch({ type: "reset" })} />;
+      return <Ending state={state} />;
     case "confused":
       return <Confused onRestart={() => dispatch({ type: "reset" })} />;
   }
@@ -392,10 +393,11 @@ function History({ log }: { log: LogEntry[] }) {
   );
 }
 
-function Ending({ state, onReplay }: { state: GameState; onReplay: () => void }) {
+function Ending({ state }: { state: GameState }) {
   const youWon = state.phase === "you-won";
   return (
     <section className="flex w-full flex-col items-center text-center">
+      <Balloons />
       <p className={`${eyebrow} animate-rise`}>{youWon ? "You got it!" : "Got you!"}</p>
       <h1 className="text-glow animate-rise mt-4 font-serif text-5xl leading-tight italic [animation-delay:80ms]">
         {youWon ? `My number was ${MY_NUMBER}` : `Your number is ${state.yourNumber}`}
@@ -406,9 +408,12 @@ function Ending({ state, onReplay }: { state: GameState; onReplay: () => void })
         </p>
       )}
       <Reveal />
-      <button onClick={onReplay} className={`${secondaryButton} animate-rise mt-9 [animation-delay:1600ms]`}>
-        Play again
-      </button>
+      <div className="animate-rise mt-10 [animation-delay:1700ms]">
+        <p className={eyebrow}>that was the whole game</p>
+        <p className="text-glow mt-3 font-serif text-4xl leading-tight italic">
+          Congrats on your birthday once again ♡
+        </p>
+      </div>
     </section>
   );
 }
