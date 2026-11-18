@@ -46,3 +46,6 @@ next-env.d.ts
 
 # local tooling
 .claude/launch.json
+
+# original full-size video (too big for GitHub; the site uses public/media/video.mp4)
+original-video/
